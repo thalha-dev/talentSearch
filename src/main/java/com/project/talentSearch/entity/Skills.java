@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name = "employee_skill_map", uniqueConstraints = @UniqueConstraint(name = "skill_name_unique", columnNames = "skill_name"))
+@Table(name = "skills", uniqueConstraints = @UniqueConstraint(name = "skill_name_unique", columnNames = "skill_name"))
 public class Skills {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
