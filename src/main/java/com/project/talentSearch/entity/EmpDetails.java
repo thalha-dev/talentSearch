@@ -1,5 +1,6 @@
 package com.project.talentSearch.entity;
 
+import java.sql.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -41,6 +42,9 @@ public class EmpDetails {
 
   @Column(name = "emp_address")
   private String empAddress;
+
+  @Column(name = "emp_joining_date")
+  private Date empJoiningDate;
 
   @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<EmployeeExperience> experiences;
