@@ -2,6 +2,7 @@ package com.project.talentSearch.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Builder
 @Table(name = "emp_details", uniqueConstraints = @UniqueConstraint(name = "emp_email_unique", columnNames = "emp_email"))
 public class EmpDetails {
   @Id
@@ -39,7 +42,7 @@ public class EmpDetails {
   @Column(name = "emp_address")
   private String empAddress;
 
-  @OneToMany(mappedBy = "employee")
+  @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<EmployeeExperience> experiences;
 
   @ManyToOne
