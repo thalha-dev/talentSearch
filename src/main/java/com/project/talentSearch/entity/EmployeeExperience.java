@@ -2,6 +2,8 @@ package com.project.talentSearch.entity;
 
 import java.sql.Date;
 
+// import org.hibernate.annotations.Formula;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +29,7 @@ public class EmployeeExperience {
   @Column(name = "experience_id")
   private Long Id;
 
+  // @Formula("TIMESTAMPDIFF(YEAR, start_date, end_date)")
   @Column(name = "years_of_experience")
   private Integer yearsOfExperience;
 
