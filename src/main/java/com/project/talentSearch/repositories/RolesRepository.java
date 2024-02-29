@@ -6,4 +6,6 @@ import com.project.talentSearch.entity.Roles;
 
 public interface RolesRepository extends JpaRepository<Roles, Long> {
 
+  Roles findByRoleName(String roleName);
+
 }
