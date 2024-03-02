@@ -19,7 +19,7 @@ public class CompanyProjectsController {
   @PostMapping("projects/addNewProject")
   public ResponseEntity<CompanyProjects> addNewProject(@RequestBody CompanyProjects projectForm) {
     if (projectForm != null && projectForm.getProjectName() != null && projectForm.getProjectStartDate() != null
-        && projectForm.getProjectDuetDate() != null && projectForm.getProjectStatus() != null) {
+        && projectForm.getProjectDueDate() != null && projectForm.getProjectStatus() != null) {
       CompanyProjects newProject = companyProjectsRepository.save(projectForm);
       return new ResponseEntity<>(newProject, HttpStatus.CREATED);
     } else {

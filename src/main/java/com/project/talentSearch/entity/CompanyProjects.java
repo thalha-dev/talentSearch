@@ -35,10 +35,9 @@ public class CompanyProjects {
   private Date projectStartDate;
 
   @Column(name = "project_due_date")
-  private Date projectDuetDate;
+  private Date projectDueDate;
 
   // New: The project is in the early stages of development or planning.
-  // Open: The project has been started but is not yet completed.
   // InProgress: Work is currently being done on the project.
   // Completed: All work on the project has been finished.
   // Upcoming: The project is scheduled to be started in the near future.
