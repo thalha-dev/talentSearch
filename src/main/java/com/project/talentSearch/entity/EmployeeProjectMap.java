@@ -27,17 +27,10 @@ public class EmployeeProjectMap {
   @Column(name = "epmloyee_project_map_id")
   private Long Id;
 
-  /*
-   * Assigned: The employee has been assigned to the project but has not started
-   * work yet.
-   * Active: The employee is currently working on the project.
-   * OnHold: Work by the employee on the project has been temporarily paused.
-   * Completed: The employee has finished all their tasks for the project.
-   * Released: The employee was part of the project but has now been released from
-   * it.
-   */
+  // 0: Not occupied
+  // 1 : occupied
   @Column(name = "current_status")
-  private String currentStatus;
+  private Integer currentStatus;
 
   @Column(name = "occupancy")
   private Integer occupancy;
