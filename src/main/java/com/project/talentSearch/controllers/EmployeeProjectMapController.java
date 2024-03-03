@@ -1,5 +1,6 @@
 package com.project.talentSearch.controllers;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,7 @@ import com.project.talentSearch.dto.queries.GetHalfOccupiedManagersDto;
 import com.project.talentSearch.dto.queries.GetUnOccupiedEmpAndHalfOccupiedManagerNativeDto;
 import com.project.talentSearch.dto.queries.GetUnOccupiedEmpDto;
 import com.project.talentSearch.dto.queries.GetUnoccupiedAndHalfOccupiedManagersDto;
+import com.project.talentSearch.dto.queries.ProjectDetailsDto;
 import com.project.talentSearch.entity.CompanyProjects;
 import com.project.talentSearch.entity.EmpDetails;
 import com.project.talentSearch.entity.EmployeeProjectMap;
@@ -178,6 +181,25 @@ public class EmployeeProjectMapController {
     List<Object[]> queryResult = employeeProjectMapRepository.findUnoccupiedEmployeesAndHalfOccupiedManagersNative();
     List<GetUnOccupiedEmpAndHalfOccupiedManagerNativeDto> dtos = queryResult.stream()
         .map(element -> this.toGetUnOccupiedEmpAndHalfOccupiedManagerNativeDto(element))
+        .collect(Collectors.toList());
+    return new ResponseEntity<>(dtos, HttpStatus.OK);
+  }
+
+  private ProjectDetailsDto toProjectDetailsDto(Object[] queryResult) {
+    ProjectDetailsDto dto = new ProjectDetailsDto();
+    dto.setProjectId(((EmployeeProjectMap) queryResult[0]).getProject().getId());
+    dto.setProjectName(((EmployeeProjectMap) queryResult[0]).getProject().getProjectName());
+    dto.setProjectStartDate(((EmployeeProjectMap) queryResult[0]).getProject().getProjectStartDate());
+    dto.setProjectDueDate(((EmployeeProjectMap) queryResult[0]).getProject().getProjectDueDate());
+    dto.setProjectStatus(((EmployeeProjectMap) queryResult[0]).getProject().getProjectStatus());
+    return dto;
+  }
+
+  @GetMapping("/employee/projectDetails/{empId}")
+  public ResponseEntity<List<ProjectDetailsDto>> getEmployeeProjectDetails(@PathVariable Long empId) {
+    List<Object[]> queryResult = employeeProjectMapRepository.findEmployeeProjectDetails(empId);
+    List<ProjectDetailsDto> dtos = queryResult.stream()
+        .map(element -> this.toProjectDetailsDto(element))
         .collect(Collectors.toList());
     return new ResponseEntity<>(dtos, HttpStatus.OK);
   }

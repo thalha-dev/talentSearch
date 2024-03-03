@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.project.talentSearch.entity.EmployeeProjectMap;
 
@@ -55,5 +56,11 @@ public interface EmployeeProjectMapRepository extends JpaRepository<EmployeeProj
       "WHERE r.role_name='Manager'", nativeQuery = true)
   List<Object[]> findUnoccupiedEmployeesAndHalfOccupiedManagersNative();
 
+  @Query("SELECT m, e.empName " +
+       "FROM EmployeeProjectMap m " +
+       "JOIN m.project p " +
+       "JOIN m.employee e " +
+       "WHERE m.employee.id = :empId")
+  List<Object[]> findEmployeeProjectDetails(@Param("empId") Long empId);
 
 }
