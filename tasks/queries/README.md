@@ -36,7 +36,7 @@
 
      ```
 
-2. [] Get Employees who have been working for more than 2years
+2. [x] Get Employees who have been working for more than 2years
 
    - mysql solution
 
