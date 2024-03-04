@@ -1,9 +1,13 @@
 package com.project.talentSearch.controllers;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,6 +67,30 @@ public class EmpDetailsController {
     } else {
       return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
+  }
+
+  private EmpDetailDto toEmpDetailDto(Object[] queryResult) {
+    EmpDetailDto dto = new EmpDetailDto();
+    dto.setId(((EmpDetails) queryResult[0]).getId());
+    dto.setEmpName(((EmpDetails) queryResult[0]).getEmpName());
+    dto.setEmpEmail(((EmpDetails) queryResult[0]).getEmpEmail());
+    dto.setEmpPhone(((EmpDetails) queryResult[0]).getEmpPhone());
+    dto.setEmpAddress(((EmpDetails) queryResult[0]).getEmpAddress());
+    dto.setEmpJoiningDate(((EmpDetails) queryResult[0]).getEmpJoiningDate());
+    return dto;
+  }
+
+  @GetMapping("/employee/worksMoreThan2Year")
+  public ResponseEntity<List<EmpDetailDto>> getEmpWorksMoreThan2Year() {
+    List<Object[]> queryResult = empDetailsRepository.findEmpWorkingMoreThan2Years();
+    if (queryResult.isEmpty()) {
+      return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    }
+    List<EmpDetailDto> dtos = queryResult.stream()
+        .map(element -> this.toEmpDetailDto(element))
+        .collect(Collectors.toList());
+    return new ResponseEntity<List<EmpDetailDto>>(dtos, HttpStatus.OK);
+
   }
 
 }
