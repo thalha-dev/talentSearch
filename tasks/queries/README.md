@@ -76,7 +76,7 @@
 
 4. [] When i pass a skill id, it should return the employee details who score more than 7
 
-5. [] When i pass a employee id, it should return the total experience with past and present company
+5. [x] When i pass a employee id, it should return the total experience with past and present company
 
    - mysql solution
 
