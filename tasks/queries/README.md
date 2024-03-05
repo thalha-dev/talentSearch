@@ -74,7 +74,29 @@
 
      ```
 
-4. [] When i pass a skill id, it should return the employee details who score more than 7
+4. [x] When i pass a skill id, it should return the employee details who score more than 7
+
+   - mysql soulution
+
+   ```js
+
+   SELECT
+       e.emp_id,
+       e.emp_name,
+       e.role_id,
+       r.role_name,
+       map.skill_id,
+       skill.skill_name,
+       map.skill_score
+   FROM talent_search.emp_details AS e
+   INNER JOIN talent_search.roles AS r ON e.role_id = r.role_id
+   LEFT JOIN talent_search.employee_skill_map AS map ON e.emp_id = map.emp_id
+   LEFT JOIN talent_search.skills AS skill ON map.skill_id = skill.skill_id
+   WHERE
+       skill.skill_id = 6
+       AND map.skill_score > 7;
+
+   ```
 
 5. [x] When i pass a employee id, it should return the total experience with past and present company
 
